@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int servers;
+    cout << "Enter number of servers: ";
+    cin >> servers;
+
+    int requests;
+    cout << "Enter number of requests: ";
+    cin >> requests;
+
+    int serverLoad[100] = {0};  // fixed size array for load (max 100 servers)
+
+    cout << "\nRequest to Server Mapping:\n";
+    for (int i = 0; i < requests; i++) {
+        int requestID;
+        cout << "Enter Request ID " << i + 1 << ": ";
+        cin >> requestID;
+
+        // Distribute using modulo (directly, no hash function)
+        int assignedServer = requestID % servers;
+        serverLoad[assignedServer]++;
+
+        cout << "Request ID " << requestID 
+             << " assigned to Server " << assignedServer << endl;
+    }
+
+    cout << "\n--- Final Server Load ---\n";
+    for (int i = 0; i < servers; i++) {
+        cout << "Server " << i << " handled " << serverLoad[i] << " requests.\n";
+    }
+
+    return 0;
+}
