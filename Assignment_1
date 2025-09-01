@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+const int CITIES = 3;
+const int MONTHS = 4;
+
+// Function to read rainfall data
+void readData(float rain[CITIES][MONTHS]) {
+    for (int i = 0; i < CITIES; i++) {
+        cout << "Enter rainfall for City " << i + 1 << " (4 months):\n";
+        for (int j = 0; j < MONTHS; j++) {
+            cout << "Month " << j + 1 << ": ";
+            cin >> rain[i][j];
+        }
+    }
+}
+
+// Function to calculate average rainfall for each city
+void calcAvg(const float rain[CITIES][MONTHS], float avg[CITIES]) {
+    for (int i = 0; i < CITIES; i++) {
+        float sum = 0;
+        for (int j = 0; j < MONTHS; j++) {
+            sum += rain[i][j];
+        }
+        avg[i] = sum / MONTHS;
+    }
+}
+
+// Function to display rainfall data in table format
+void showTable(const float rain[CITIES][MONTHS], const float avg[CITIES]) {
+    cout << "\nRainfall Data (in mm)\n";
+    cout << "City\tM1\tM2\tM3\tM4\tAvg\n";
+    
+    for (int i = 0; i < CITIES; i++) {
+        cout << i + 1 << "\t";
+        for (int j = 0; j < MONTHS; j++) {
+            cout << rain[i][j] << "\t";
+        }
+        cout << avg[i] << "\n";
+    }
+}
+
+int main() {
+    float rain[CITIES][MONTHS];
+    float avg[CITIES];
+
+    readData(rain);       // Input rainfall data
+    calcAvg(rain, avg);   // Calculate average
+    showTable(rain, avg); // Display results
+
+    return 0;
+}
