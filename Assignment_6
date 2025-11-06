@@ -56,7 +56,6 @@ public:
         cout << endl;
     }
 };
-
 int main() {
     Queue coffeeQueue(5);  // Queue can hold max 5 customers
     int choice;
