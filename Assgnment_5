@@ -1,0 +1,69 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Stack {
+    char arr[100];
+    int top = -1;
+
+public:
+    void push(char c) {
+        if (top == 99)
+            cout << "Stack Overflow\n";
+        else
+            arr[++top] = c;
+    }
+
+    char pop() {
+        if (isEmpty()) {
+            cout << "Stack Underflow\n";
+            return '\0';
+        } else
+            return arr[top--];
+    }
+
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    char peek() {
+        if (isEmpty())
+            return '\0';
+        else
+            return arr[top];
+    }
+};
+
+bool isMatchingPair(char a, char b) {
+    return (a == '(' && b == ')') ||
+           (a == '{' && b == '}') ||
+           (a == '[' && b == ']');
+}
+
+bool isBalanced(string exp) {
+    Stack s;
+    for (char c : exp) {
+        if (c == '(' || c == '{' || c == '[')
+            s.push(c);
+        else if (c == ')' || c == '}' || c == ']') {
+            if (s.isEmpty())
+                return false;
+            else if (!isMatchingPair(s.pop(), c))
+                return false;
+        }
+    }
+    return s.isEmpty();
+}
+
+int main() {
+    string expression;
+    cout << "Enter an expression: ";
+    cin >> expression;
+
+    if (isBalanced(expression))
+        cout << "Expression is balanced." << endl;
+    else
+        cout << "Expression is not balanced." << endl;
+
+    return 0;
+}
