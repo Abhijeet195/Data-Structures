@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+class Queue {
+    int front, rear, capacity;
+    string* queue;
+
+public:
+    Queue(int size) {
+        capacity = size;
+        queue = new string[capacity];
+        front = 0;
+        rear = -1;
+    }
+
+    ~Queue() {
+        delete[] queue;
+    }
+
+    bool isEmpty() {
+        return rear < front;
+    }
+
+    bool isFull() {
+        return rear == capacity - 1;
+    }
+
+    void enqueue(string customerName) {
+        if (isFull()) {
+            cout << "Queue is full. Cannot add more customers.\n";
+            return;
+        }
+        rear++;
+        queue[rear] = customerName;
+        cout << customerName << " has arrived and joined the queue.\n";
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty. No customer to serve.\n";
+            return;
+        }
+        cout << queue[front] << " has been served and left the queue.\n";
+        front++;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty.\n";
+            return;
+        }
+        cout << "Current queue:\n";
+        for (int i = front; i <= rear; i++) {
+            cout << queue[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue coffeeQueue(5);  // Queue can hold max 5 customers
+    int choice;
+    string name;
+
+    do {
+        cout << "\n1. Customer Arrives\n2. Serve Customer\n3. Display Queue\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter customer name: ";
+            cin >> name;
+            coffeeQueue.enqueue(name);
+            break;
+        case 2:
+            coffeeQueue.dequeue();
+            break;
+        case 3:
+            coffeeQueue.display();
+            break;
+        case 4:
+            cout << "Exiting...\n";
+            break;
+        default:
+            cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
